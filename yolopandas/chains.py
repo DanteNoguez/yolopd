@@ -19,6 +19,8 @@ do the transformations required.
 
 You should not assign any variables; you should return a one-liner in Pandas.
 
+If the query results in more than 10 rows, ask a followup question to filter them further. Display the result until you have only 10 or less rows that fit the criteria.
+
 This is your objective: {query}
 
 Go!
