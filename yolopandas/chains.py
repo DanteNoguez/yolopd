@@ -47,7 +47,7 @@ This is the history of your interaction so far:
 {chat_history}
 Human: {query}
 
-If several results match the same criteria from the query, return only the top 10.
+If several results match the same criteria from the query, return only the top 10 by using .head(10).
 
 Go!
 
