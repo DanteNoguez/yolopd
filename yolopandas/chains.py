@@ -6,7 +6,7 @@ from langchain.chains.base import Chain
 from langchain.chains.conversation.memory import ConversationBufferMemory
 from langchain.llms.base import BaseLLM
 from langchain.llms.loading import load_llm
-
+from langchain.chat_models import ChatOpenAI
 
 DEFAULT_LLM = None
 # Default template, no memory
@@ -77,7 +77,7 @@ def get_chain(llm: Optional[BaseLLM] = None, use_memory: bool = True) -> Chain:
         if DEFAULT_LLM is None:
             llm_config_path = os.environ.get("LLPANDAS_LLM_CONFIGURATION")
             if llm_config_path is None:
-                llm = OpenAI(temperature=0)
+                llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
             else:
                 llm = load_llm(llm_config_path)
         else:
