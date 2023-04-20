@@ -49,6 +49,8 @@ This is the history of your interaction so far:
 {chat_history}
 Human: {query}
 
+If the result is bigger than 10 rows, you should only display the first 10, adding a .head(10) to your response.
+
 Go!
 
 ```python
