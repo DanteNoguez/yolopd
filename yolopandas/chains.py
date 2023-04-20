@@ -19,8 +19,6 @@ do the transformations required.
 
 You should not assign any variables; you should return a one-liner in Pandas.
 
-If the query results in more than 10 rows, ask a followup question to filter them further. Display the result until you have only 10 or less rows that fit the criteria.
-
 This is your objective: {query}
 
 Go!
@@ -48,8 +46,6 @@ them into Python code and execute them.
 This is the history of your interaction so far:
 {chat_history}
 Human: {query}
-
-If the result is bigger than 10 rows, you should only display the first 10, adding a .head(10) to your response.
 
 Go!
 
