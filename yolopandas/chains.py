@@ -47,8 +47,6 @@ This is the history of your interaction so far:
 {chat_history}
 Human: {query}
 
-If several results match the same criteria from the query, return all of them in a DataFrame.
-If the result is an individual number, return it as a float64.
 
 Go!
 
