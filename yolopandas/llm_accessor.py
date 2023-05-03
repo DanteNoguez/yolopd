@@ -37,7 +37,7 @@ class LLMAccessor:
         df_columns = df.columns.tolist()
         inputs = {"query": query, "chat_history": self.buffer_memory, "df_head": df.head(), "df_columns": df_columns, "stop": "```"}
         llm_response = self.chain.run(**inputs)
-        self.buffer_memory = self.update_memory(llm_response, self.buffer_memory)
+        self.buffer_memory = self.update_memory({"query": query, "response": llm_response}, self.buffer_memory)
         eval_expression = False
         if not yolo:
             print("suggested code:")
