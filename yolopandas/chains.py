@@ -74,15 +74,14 @@ def get_chain(llm: Optional[BaseLLM] = None, use_memory: bool = True) -> Chain:
         if DEFAULT_LLM is None:
             llm_config_path = os.environ.get("LLPANDAS_LLM_CONFIGURATION")
             if llm_config_path is None:
-                llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+                llm = ChatOpenAI(model="gpt-4", temperature=0)
             else:
                 llm = load_llm(llm_config_path)
         else:
             llm = DEFAULT_LLM
 
     if use_memory:
-        memory = ConversationBufferMemory(memory_key="chat_history", input_key="query")
-        chain = LLMChain(llm=llm, prompt=PROMPT_WITH_MEMORY, memory=memory)
+        chain = LLMChain(llm=llm, prompt=PROMPT_WITH_MEMORY)
     else:
         chain = LLMChain(llm=llm, prompt=PROMPT)
 

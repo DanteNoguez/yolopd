@@ -15,25 +15,29 @@ from yolopandas.chains import get_chain
 class LLMAccessor:
     def __init__(self, pandas_df: pd.DataFrame):
         self.df = pandas_df
-        use_memory = bool(os.environ.get("LLPANDAS_USE_MEMORY", True))
-        self.chain = get_chain(use_memory=use_memory)
+        self.buffer_memory = []
+        self.chain = get_chain(use_memory=True)
 
     def set_chain(self, chain: Chain) -> None:
         """Set chain to use."""
         self.chain = chain
 
-    def reset_chain(
-        self, llm: Optional[BaseLLM] = None, use_memory: bool = True
-    ) -> None:
-        """Reset chain with LLM or memory kwarg."""
-        self.chain = get_chain(llm=llm, use_memory=use_memory)
+    def update_memory(self, value, memory):
+        MAX_LENGTH = 10
+        if len(memory) >= MAX_LENGTH:
+            memory.pop(0)
+            memory.append(value)
+        else:
+            memory.append(value)
+        return memory
 
     def query(self, query: str, yolo: bool = False) -> Any:
         """Query the dataframe."""
         df = self.df
         df_columns = df.columns.tolist()
-        inputs = {"query": query, "df_head": df.head(), "df_columns": df_columns, "stop": "```"}
+        inputs = {"query": query, "chat_history": self.buffer_memory, "df_head": df.head(), "df_columns": df_columns, "stop": "```"}
         llm_response = self.chain.run(**inputs)
+        self.buffer_memory = self.update_memory(llm_response, self.buffer_memory)
         eval_expression = False
         if not yolo:
             print("suggested code:")
