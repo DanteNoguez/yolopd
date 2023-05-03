@@ -45,7 +45,7 @@ them into Python code and execute them.
 
 This is the history of your interaction so far:
 {chat_history}
-Human: {query}
+Query: {query}
 
 
 Go!
